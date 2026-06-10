@@ -3,17 +3,17 @@ import useStore, { type PolicyType } from '../../Store/Store'
 import PolicyCard from '../Card/PolicyCard'
 import Pagination from './Pagination'
 import Skelton from '../Common/Skelton'
+import { useShallow } from 'zustand/react/shallow'
 
 const Layout = () => {
   const { loadPolicy } = useStore()
   const policys = useStore((state) => state.policyData)
   const plan = useStore((state) => state.plan)
+  const policyFilter = useStore(useShallow((state) => state.getPolicy()))
 
   const [currentPageData, setCurrentPageData] = useState<PolicyType[]>([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
-
-  const [filteredPolicy, setFilteredPolicy] = useState<PolicyType[]>([])
 
   useEffect(() => {
     const fetchLocalData = async () => {
@@ -23,7 +23,6 @@ const Layout = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
         }
-
         const data: PolicyType[] = await response.json()
         loadPolicy(data)
       } catch (err) {
@@ -34,33 +33,27 @@ const Layout = () => {
     fetchLocalData()
   }, [])
 
-  useEffect(() => {
-    const startItem = (currentPage - 1) * 3
-    const endItem = startItem + 3
-    setFilteredPolicy(policys)
-    setCurrentPageData(policys.slice(startItem, endItem))
-    setTotalPages(Math.floor(policys.length / 3))
-  }, [policys])
+  const calculateTotalAndCurrentPage = (Items: PolicyType[] = [], ItemPerPage: number = 3) => {
+    if (Items.length <= ItemPerPage) {
+      const total = 1
+      if (total < currentPage) setCurrentPage(total)
+      const startItem = 0
+      const endItem = startItem + ItemPerPage
+      setCurrentPageData(policyFilter.slice(startItem, endItem))
+      setTotalPages(total)
+    } else {
+      const total = Math.floor(policyFilter.length / ItemPerPage)
+      if (total < currentPage) setCurrentPage(total)
+      const startItem = total < currentPage ? total : (currentPage - 1) * 3
+      const endItem = startItem + ItemPerPage
+      setCurrentPageData(policyFilter.slice(startItem, endItem))
+      setTotalPages(total)
+    }
+  }
 
   useEffect(() => {
-    const startItem = (currentPage - 1) * 3
-    const endItem = startItem + 3
-    setCurrentPageData(filteredPolicy.slice(startItem, endItem))
-    setTotalPages(Math.floor(filteredPolicy.length / 3))
-  }, [currentPage])
-
-  useEffect(() => {
-    const policyItem = policys.filter((d) => {
-      if (plan == 'All') return d
-      return plan == d.planName
-    })
-    setFilteredPolicy(policyItem)
-    setCurrentPage(1)
-    const startItem = 0
-    const endItem = startItem + 3
-    setCurrentPageData(policyItem.slice(startItem, endItem))
-    setTotalPages(Math.floor(policyItem.length / 3))
-  }, [plan])
+    calculateTotalAndCurrentPage(policyFilter)
+  }, [policyFilter, currentPage, plan])
 
   const onPageChange = (page: number) => {
     setCurrentPage(page)
@@ -71,7 +64,7 @@ const Layout = () => {
       <main>
         {policys.length == 0 && [...Array(3)].map((_, index) => <Skelton key={index}></Skelton>)}
         {currentPageData.length > 0 && currentPageData.map((record, index) => <PolicyCard key={index} policy={record}></PolicyCard>)}
-        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}></Pagination>
+        {currentPageData.length > 0 ? <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}></Pagination> : <div className='mt-24 text-center'>No Data Available</div>}
       </main>
     </>
   )

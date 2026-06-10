@@ -24,30 +24,51 @@ export interface PolicyType {
   planName: string
 }
 
+interface FilterByType {
+  plan: string
+  status: string
+  sortBy: string
+}
+
 interface StoreState {
   policyData: PolicyType[]
-  plan: string
+  filterBy: FilterByType
+  getPolicy: () => PolicyType[]
 }
 
 interface StoreActions {
   loadPolicy: (policy: PolicyType[]) => void
-  filterPlan: (paln: string) => void
+  setFilterBy: (filterBy: any) => void
 }
 
 type Store = StoreState & StoreActions
 
 const useStore = create<Store>((set, get) => ({
   policyData: [],
-  plan: 'All',
+  filterBy: {
+    plan: 'All',
+    status: 'All',
+    sortBy: 'Asc',
+  },
   loadPolicy: (policyData) => set({ policyData }),
-  filterPlan: (plan: string) => set({ plan }),
+  setFilterBy: (filter: any) => set((state) => ({ filterBy: { ...state.filterBy, ...filter } })),
   getPolicy: () => {
-    console.log("getPolicy")
-    return get().policyData.filter(record => {
-      if(get().plan == 'All') return record
-      return get().plan == record.planName
-    }) ?? []
-  }
+    const { policyData, filterBy } = get()
+
+    if (policyData.length == 0) return []
+
+    return policyData
+      .filter((record) => {
+        if (filterBy.plan == 'All' && filterBy.status == 'All') return record
+        if (filterBy.plan == record.planName && filterBy.status == 'All') return record
+        if (filterBy.plan == 'All' && filterBy.status == record.status) return record
+        return filterBy.plan == record.planName && filterBy.status == record.status
+      })
+      .sort((a, b) => {
+        if (filterBy.sortBy == 'Asc') return Date.parse(a.policyStart) - Date.parse(b.policyStart)
+        return Date.parse(b.policyStart) - Date.parse(a.policyStart)
+      })
+  },
 }))
 
 export default useStore

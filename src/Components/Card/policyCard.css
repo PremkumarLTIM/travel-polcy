@@ -1,10 +1,12 @@
 .policyCard {
   max-width: 750px;
+  font-size: 11px;
 }
 
 .vertical-line {
   border-right: 1px solid #f3f4f9;
   height: max-content;
+  margin-right: 10px;
 }
 
 .button-class {
@@ -21,6 +23,15 @@
   margin-right: 2px;
 }
 
+p {
+  line-height: 200%;
+  font-size: smaller;
+}
+
+.container {
+  grid-template-columns: 60% 40%;
+}
+
 @media screen and (max-width: 768px) {
   .policyCard {
     max-width: 400px;
@@ -28,5 +39,9 @@
 
   .vertical-line {
     border-right: none;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
   }
 }

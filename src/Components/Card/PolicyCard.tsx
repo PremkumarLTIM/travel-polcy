@@ -32,25 +32,25 @@ const PolicyCard = ({ policy }: policyProps) => {
               Policy number: <span className="text-gray-800 font-medium">{policy.policyNumber}</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2  md:gap-2 text-sm text-gray-700">
-              <div className="vertical-line">
+            <div className="container grid grid-cols-1 md:grid-cols-2  md:gap-2 text-sm text-gray-700">
+              <div className="vertical-line ">
                 <p>
                   <strong>Destination:</strong> {policy.destinations[0].name}
                 </p>
                 {policy.policyStart && (
                   <p>
-                    <strong>{policy.planName == 'Comprehensive' ? 'Travel date:' : 'Policy start date:'}</strong> {FormatDate(policy.policyStart)}{' '}
-                    {policy.planName == 'Comprehensive' ? `- ${FormatDate(policy.policyEnd)}` : ''}
+                    <strong>{policy.planName != 'Comprehensive' ? 'Travel date:' : 'Policy start date:'}</strong> {FormatDate(policy.policyStart)}{' '}
+                    {policy.planName != 'Comprehensive' ? `- ${FormatDate(policy.policyEnd)}` : ''}
                   </p>
                 )}
 
-                {policy.planName != 'Comprehensive' && (
+                {policy.planName == 'Comprehensive' && (
                   <p>
                     <strong>Maximum trip duration:</strong> Up to {policy.maxTripDuration} days
                   </p>
                 )}
               </div>
-              <div>
+              <div >
                 <p>
                   <strong>Plan:</strong> {policy.planName}
                 </p>
