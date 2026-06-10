@@ -15,10 +15,6 @@ const Layout = () => {
 
   const [filteredPolicy, setFilteredPolicy] = useState<PolicyType[]>([])
 
-  // useEffect(() => {
-  //   loadPolicy(PolicyData)
-  // }, [])
-
   useEffect(() => {
     const fetchLocalData = async () => {
       try {
@@ -31,7 +27,7 @@ const Layout = () => {
         const data: PolicyType[] = await response.json()
         loadPolicy(data)
       } catch (err) {
-        console.log('Error--',err)
+        console.log('Error--', err)
       }
     }
 
@@ -43,14 +39,14 @@ const Layout = () => {
     const endItem = startItem + 3
     setFilteredPolicy(policys)
     setCurrentPageData(policys.slice(startItem, endItem))
-    setTotalPages(policys.length / 3)
+    setTotalPages(Math.floor(policys.length / 3))
   }, [policys])
 
   useEffect(() => {
     const startItem = (currentPage - 1) * 3
     const endItem = startItem + 3
     setCurrentPageData(filteredPolicy.slice(startItem, endItem))
-    setTotalPages(filteredPolicy.length / 3)
+    setTotalPages(Math.floor(filteredPolicy.length / 3))
   }, [currentPage])
 
   useEffect(() => {
@@ -59,10 +55,11 @@ const Layout = () => {
       return plan == d.planName
     })
     setFilteredPolicy(policyItem)
-    const startItem = (currentPage - 1) * 3
+    setCurrentPage(1)
+    const startItem = 0
     const endItem = startItem + 3
     setCurrentPageData(policyItem.slice(startItem, endItem))
-    setTotalPages(policyItem.length / 3)
+    setTotalPages(Math.floor(policyItem.length / 3))
   }, [plan])
 
   const onPageChange = (page: number) => {

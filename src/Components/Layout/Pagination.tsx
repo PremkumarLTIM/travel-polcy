@@ -44,10 +44,10 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <div className="flex flex-wrap justify-center items-center gap-2 mt-6 mb-5">
       <button
-        disabled={currentPage === 1}
+        disabled={currentPage == 1}
         onClick={() => onPageChange(currentPage - 1)}
         className={`px-3 py-1 rounded-md border text-sm ${
-          currentPage === 1
+          currentPage == 1
             ? "text-gray-400 border-gray-200 cursor-not-allowed"
             : "hover:bg-gray-100"
         }`}
@@ -76,10 +76,10 @@ const Pagination: React.FC<PaginationProps> = ({
       )}
 
       <button
-        disabled={currentPage === totalPages}
+        disabled={currentPage == totalPages || totalPages <= 1}
         onClick={() => onPageChange(currentPage + 1)}
         className={`px-3 py-1 rounded-md border text-sm ${
-          currentPage === totalPages
+          currentPage == totalPages || totalPages <= 1
             ? "text-gray-400 border-gray-200 cursor-not-allowed"
             : "hover:bg-gray-100"
         }`}

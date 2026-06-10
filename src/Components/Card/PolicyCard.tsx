@@ -2,6 +2,8 @@ import { type PolicyType } from '../../Store/Store'
 
 import './policyCard.css'
 
+import expand from '../../assets/expand.png'
+
 interface policyProps {
   policy: PolicyType
 }
@@ -9,7 +11,7 @@ interface policyProps {
 const PolicyCard = ({ policy }: policyProps) => {
   const formatter = new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',
-    month: 'long', 
+    month: 'long',
     year: 'numeric',
   })
 
@@ -59,10 +61,12 @@ const PolicyCard = ({ policy }: policyProps) => {
             </div>
 
             <div className="flex gap-4 text-sm">
-              <a href="#" className="text-gray-600 hover:underline">
+              <a href="#" className="text-gray-600 hover:underline link-parent">
+                <img src={expand} className="expand-image"></img>
                 View PDS
               </a>
-              <a href="#" className="text-gray-600 hover:underline">
+              <a href="#" className="text-gray-600 hover:underline link-parent">
+                <img src={expand} className="expand-image"></img>
                 Certificate of insurance
               </a>
             </div>

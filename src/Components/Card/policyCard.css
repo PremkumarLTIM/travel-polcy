@@ -11,6 +11,16 @@
   width: 100%;
 }
 
+.link-parent {
+  display: flex;
+}
+
+.expand-image {
+  width: 17px;
+  height: 17px;
+  margin-right: 2px;
+}
+
 @media screen and (max-width: 768px) {
   .policyCard {
     max-width: 400px;
