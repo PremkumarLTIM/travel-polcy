@@ -6,8 +6,8 @@ const Navbar = () => {
   const { filterPlan } = useStore()
   const planItems = ['All', 'Domestic', 'Comprehensive', 'Essentials']
 
-  const handleChange = (e: Event) => {
-    filterPlan(e.target.value)
+  const handleChange = (e: Event | undefined) => {
+    filterPlan(e?.target?.value ?? 'All')
   }
 
   return (

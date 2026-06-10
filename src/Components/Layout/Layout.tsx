@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { PolicyData } from '../../MockData/mockData'
 import useStore, { type PolicyType } from '../../Store/Store'
 import PolicyCard from '../Card/PolicyCard'
 import Pagination from './Pagination'
@@ -16,22 +15,23 @@ const Layout = () => {
 
   const [filteredPolicy, setFilteredPolicy] = useState<PolicyType[]>([])
 
-  useEffect(() => {
-    loadPolicy(PolicyData)
-  }, [])
+  // useEffect(() => {
+  //   loadPolicy(PolicyData)
+  // }, [])
 
   useEffect(() => {
     const fetchLocalData = async () => {
       try {
-        const response = await fetch('../../MockData/policyData.json')
+        const response = await fetch('/policyData.json')
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
         }
 
         const data: PolicyType[] = await response.json()
+        loadPolicy(data)
       } catch (err) {
-        console.log('Error--')
+        console.log('Error--',err)
       }
     }
 
