@@ -1,0 +1,22 @@
+.policyCard {
+  max-width: 750px;
+}
+
+.vertical-line {
+  border-right: 1px solid #f3f4f9;
+  height: max-content;
+}
+
+.button-class {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .policyCard {
+    max-width: 400px;
+  }
+
+  .vertical-line {
+    border-right: none;
+  }
+}

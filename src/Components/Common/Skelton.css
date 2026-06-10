@@ -1,0 +1,38 @@
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* Variants */
+.skeleton.image {
+  height: 150px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.skeleton.text {
+  height: 14px;
+  margin-bottom: 8px;
+}
+
+.skeleton.text.short {
+  width: 60%;
+}
+
+.card{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
