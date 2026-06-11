@@ -47,7 +47,7 @@ const useStore = create<Store>((set, get) => ({
   policyData: [],
   filterBy: {
     plan: 'All',
-    status: 'All',
+    status: 'Active',
     sortBy: 'Asc',
   },
   loadPolicy: (policyData) => set({ policyData }),
@@ -59,8 +59,6 @@ const useStore = create<Store>((set, get) => ({
 
     return policyData
       .filter((record) => {
-        if (filterBy.plan == 'All' && filterBy.status == 'All') return record
-        if (filterBy.plan == record.planName && filterBy.status == 'All') return record
         if (filterBy.plan == 'All' && filterBy.status == record.status) return record
         return filterBy.plan == record.planName && filterBy.status == record.status
       })

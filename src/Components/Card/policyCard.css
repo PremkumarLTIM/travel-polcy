@@ -5,8 +5,8 @@
 
 .vertical-line {
   border-right: 1px solid #f3f4f9;
-  height: max-content;
   margin-right: 10px;
+  height: 70px;
 }
 
 .button-class {

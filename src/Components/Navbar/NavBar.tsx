@@ -3,7 +3,7 @@ import useStore from '../../Store/Store'
 const Navbar = () => {
   const { setFilterBy } = useStore()
   const planItems = ['All', 'Domestic', 'Comprehensive', 'Essentials']
-  const statusItems = ['All', 'Active', 'Expired']
+  const statusItems = ['Active', 'Expired']
   const sortOrderItems = ['Asc', 'Desc']
   const defaultFilterBy = useStore((state) => state.filterBy)
 

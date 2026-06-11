@@ -18,7 +18,6 @@ const Layout = () => {
     const fetchLocalData = async () => {
       try {
         const response = await fetch('/policyData.json')
-
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
         }
@@ -60,11 +59,15 @@ const Layout = () => {
 
   return (
     <>
-      <main>
+      <main className="mb-18">
         {policys.length == 0 && [...Array(3)].map((_, index) => <Skelton key={index}></Skelton>)}
-        {currentPageData.length > 0 && currentPageData.map((record, index) => <PolicyCard key={index} policy={record}></PolicyCard>)}
-        {currentPageData.length > 0 ? <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}></Pagination> : <div className='mt-24 text-center'>No Data Available</div>}
+        {currentPageData.length > 0 ? (
+          currentPageData.map((record, index) => <PolicyCard key={index} policy={record}></PolicyCard>)
+        ) : (
+          <div className="mt-24 text-center">No Data Available</div>
+        )}
       </main>
+      <footer> {currentPageData.length > 0 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}></Pagination>}</footer>
     </>
   )
 }
