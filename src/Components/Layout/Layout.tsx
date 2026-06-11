@@ -8,7 +8,6 @@ import { useShallow } from 'zustand/react/shallow'
 const Layout = () => {
   const { loadPolicy } = useStore()
   const policys = useStore((state) => state.policyData)
-  const plan = useStore((state) => state.plan)
   const policyFilter = useStore(useShallow((state) => state.getPolicy()))
 
   const [currentPageData, setCurrentPageData] = useState<PolicyType[]>([])
@@ -53,7 +52,7 @@ const Layout = () => {
 
   useEffect(() => {
     calculateTotalAndCurrentPage(policyFilter)
-  }, [policyFilter, currentPage, plan])
+  }, [policyFilter, currentPage])
 
   const onPageChange = (page: number) => {
     setCurrentPage(page)

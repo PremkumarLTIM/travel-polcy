@@ -18,7 +18,7 @@ const Navbar = () => {
       <nav className="relative bg-gray-100 ">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center ">
-            <div className="hidden sm:ml-6 sm:block">
+            <div className="sm:ml-6 sm:block">
               <div className="flex space-x-4 ">
                 <div className="rounded-md px-3 py-2 text-sm font-medium text-black">Travel Policy</div>
                 <div className="my-auto mx-5">
