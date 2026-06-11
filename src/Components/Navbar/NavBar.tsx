@@ -2,15 +2,13 @@ import useStore from '../../Store/Store'
 
 const Navbar = () => {
   const { setFilterBy } = useStore()
-  const planItems = ['All', 'Domestic', 'Comprehensive', 'Essentials']
-  const statusItems = ['Active', 'Expired']
-  const sortOrderItems = ['Asc', 'Desc']
+  const planItems = ['All', 'Single Trip', 'Annual']
   const defaultFilterBy = useStore((state) => state.filterBy)
 
   const handleChange = (e: Event | undefined) => {
     if (e?.target?.value == '' || e?.target?.value == undefined || e?.target?.value == null) setFilterBy(defaultFilterBy)
-    const { name, value } = e?.target
-    setFilterBy({ [name]: value })
+    const { name, value, checked } = e?.target
+    setFilterBy({ [name]: name == 'status' ? checked : value })
   }
 
   return (
@@ -22,7 +20,7 @@ const Navbar = () => {
               <div className="flex space-x-4 ">
                 <div className="rounded-md px-3 py-2 text-sm font-medium text-black">Travel Policy</div>
                 <div className="my-auto mx-5">
-                  <label htmlFor="plan">Plan:</label>
+                  <label htmlFor="plan">Plan Type:</label>
                   <select name="plan" id="plan" onChange={handleChange}>
                     {planItems.map((d, i) => (
                       <option key={i} value={d}>
@@ -32,24 +30,16 @@ const Navbar = () => {
                   </select>
                 </div>
                 <div className="my-auto mx-5">
-                  <label htmlFor="status">Status:</label>
-                  <select name="status" id="status" onChange={handleChange}>
-                    {statusItems.map((d, i) => (
-                      <option key={i} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="my-auto mx-5">
-                  <label htmlFor="sortBy">Sort:</label>
-                  <select name="sortBy" id="sortBy" onChange={handleChange}>
-                    {sortOrderItems.map((d, i) => (
-                      <option key={i} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
+                  <input
+                    type="checkbox"
+                    name="status"
+                    checked={defaultFilterBy.status}
+                    onChange={handleChange}
+                    className="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+                  ></input>
+                  <label htmlFor="status" className="select-none ms-2 text-sm font-medium text-heading">
+                    Active-only
+                  </label>
                 </div>
               </div>
             </div>

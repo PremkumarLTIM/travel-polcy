@@ -26,8 +26,7 @@ export interface PolicyType {
 
 interface FilterByType {
   plan: string
-  status: string
-  sortBy: string
+  status: Boolean
 }
 
 interface StoreState {
@@ -47,8 +46,7 @@ const useStore = create<Store>((set, get) => ({
   policyData: [],
   filterBy: {
     plan: 'All',
-    status: 'Active',
-    sortBy: 'Asc',
+    status: true,
   },
   loadPolicy: (policyData) => set({ policyData }),
   setFilterBy: (filter: any) => set((state) => ({ filterBy: { ...state.filterBy, ...filter } })),
@@ -59,12 +57,12 @@ const useStore = create<Store>((set, get) => ({
 
     return policyData
       .filter((record) => {
-        if (filterBy.plan == 'All' && filterBy.status == record.status) return record
-        return filterBy.plan == record.planName && filterBy.status == record.status
+        if (filterBy.plan == 'All') return filterBy.status ? record.status == 'Active' : record
+        if (filterBy.plan == record.type) return filterBy.status ? record.status == 'Active' : record
+        return false
       })
       .sort((a, b) => {
-        if (filterBy.sortBy == 'Asc') return Date.parse(a.policyStart) - Date.parse(b.policyStart)
-        return Date.parse(b.policyStart) - Date.parse(a.policyStart)
+        return Date.parse(a.policyStart) - Date.parse(b.policyStart)
       })
   },
 }))
