@@ -76,7 +76,7 @@ const PolicyCard = ({ policy }: policyProps) => {
           <div className="flex flex-col gap-2 w-full md:w-auto md:items-end">
             <button className="button-class h-8 button-yellow  text-blue-700  px-5 rounded-full border border-blue-600">Make a claim</button>
 
-            <button className="button-class h-8 border border-blue-600 text-blue-600 px-5 rounded-full hover:bg-blue-50">Manage my policy</button>
+            <button className="button-class h-8 border border-blue-600 text-blue-700 px-5 rounded-full hover:bg-blue-50">Manage my policy</button>
           </div>
         </div>
       </div>
