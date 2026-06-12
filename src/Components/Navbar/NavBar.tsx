@@ -13,14 +13,14 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="relative bg-gray-100 ">
+      <nav className="relative bg-gray-200 ">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center ">
             <div className="sm:ml-6 sm:block">
               <div className="flex space-x-4 ">
                 <div className="rounded-md px-3 py-2 text-sm font-medium text-black">Travel Policy</div>
                 <div className="my-auto mx-5">
-                  <label htmlFor="plan">Plan Type:</label>
+                  <label htmlFor="plan" className="text-sm font-medium">Plan Type:</label>
                   <select name="plan" id="plan" onChange={handleChange}>
                     {planItems.map((d, i) => (
                       <option key={i} value={d}>
@@ -37,7 +37,7 @@ const Navbar = () => {
                     onChange={handleChange}
                     className="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
                   ></input>
-                  <label htmlFor="status" className="select-none ms-2 text-sm font-medium text-heading">
+                  <label htmlFor="status" className="ms-2 text-sm font-medium">
                     Active-only
                   </label>
                 </div>

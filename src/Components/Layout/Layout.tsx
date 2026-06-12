@@ -62,7 +62,11 @@ const Layout = () => {
       <main className="mb-18">
         {policys.length == 0 && [...Array(3)].map((_, index) => <Skelton key={index}></Skelton>)}
         {currentPageData.length > 0 ? (
-          currentPageData.map((record, index) => <PolicyCard key={index} policy={record}></PolicyCard>)
+          <div>
+            {currentPageData.map((record, index) => (
+              <PolicyCard key={index} policy={record}></PolicyCard>
+            ))}
+          </div>
         ) : (
           <div className="mt-24 text-center">No Data Available</div>
         )}

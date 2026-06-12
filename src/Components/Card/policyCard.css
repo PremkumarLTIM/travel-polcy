@@ -1,16 +1,24 @@
 .policyCard {
-  max-width: 750px;
+  max-width: 700px;
   font-size: 11px;
+}
+
+.policy-number {
+  /* color: #2F5FE; */
+  color: #2f5fe3;
 }
 
 .vertical-line {
   border-right: 1px solid #f3f4f9;
   margin-right: 10px;
-  height: 70px;
+  /* height: 70px; */
+  height: fit-content;
 }
 
 .button-class {
   width: 100%;
+  font-size: 10px;
+  font-weight: 700;
 }
 
 .link-parent {
@@ -18,8 +26,8 @@
 }
 
 .expand-image {
-  width: 17px;
-  height: 17px;
+  width: 8px;
+  height: 8px;
   margin-right: 2px;
 }
 
@@ -28,9 +36,9 @@ p {
   font-size: smaller;
 }
 
-.container {
+/* .container {
   grid-template-columns: 60% 40%;
-}
+} */
 
 @media screen and (max-width: 768px) {
   .policyCard {
@@ -50,4 +58,12 @@ button:focus-visible,
 a:focus-visible {
   outline: 2px solid #1d4ed8;
   outline-offset: 2px;
+}
+
+.button-yellow {
+  background-color: #ffe6a1;
+}
+
+.link-class{
+  font-size: 9px;
 }
